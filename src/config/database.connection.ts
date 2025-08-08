@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export const connectDB = async () => {
     try {
-        const connect = await mongoose.connect(process.env.mongoURL as string, {dbName: "collectionsApp"});
+        const connect = await mongoose.connect(process.env.mongoURL as string, { dbName: "collectionsApp", maxPoolSize: 100, minPoolSize: 10, serverSelectionTimeoutMS: 5000 });
         console.log(`MongoDB Connected Successfully: ${connect.connection.host}`);
     } catch (error) {
         if (error instanceof Error) {
