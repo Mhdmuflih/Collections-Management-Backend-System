@@ -1,0 +1,27 @@
+import mongoose, { model, Schema } from "mongoose";
+import { IActivity } from "../interface/interface";
+
+const activitySchema: Schema = new Schema<IActivity>({
+    account: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Account",
+        required: true
+    },
+    action: {
+        type: String,
+        required: true
+    },
+    performedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    description: {
+        type: String
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+export default model<IActivity>("Activity", activitySchema);
