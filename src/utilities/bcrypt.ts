@@ -3,8 +3,6 @@ import bcrypt from "bcryptjs";
 export const passwordHashing = async (password: string): Promise<string | undefined> => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log("hashed password: ",hashedPassword);
-        console.log("password: ", password);
         return hashedPassword;
     } catch (error: unknown) {
         if(error instanceof Error) {

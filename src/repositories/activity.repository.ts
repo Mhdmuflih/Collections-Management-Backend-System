@@ -1,4 +1,4 @@
-import { IActivity } from "../interface/models-interfaces/model.interface";
+import { IActivity } from "../interface/models-interfaces/interface";
 import { IActivityRepository } from "../interface/services-interface/IActivityRepository";
 import Activity from "../models/activity.model";
 import { BaseRepository } from "./base.respository";

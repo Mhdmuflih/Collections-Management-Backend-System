@@ -1,4 +1,4 @@
-import { IAccount } from "../interface/models-interfaces/model.interface";
+import { IAccount } from "../interface/models-interfaces/interface";
 import { IAccountRepository } from "../interface/repositories-interfaces/IAccountRepository";
 import Account from "../models/account.model";
 import { BaseRepository } from "./base.respository";

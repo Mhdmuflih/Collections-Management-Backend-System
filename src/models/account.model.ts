@@ -1,5 +1,5 @@
 import mongoose, { model, Schema } from "mongoose";
-import { IAccount } from "../interface/models-interfaces/model.interface";
+import { IAccount } from "../interface/models-interfaces/interface";
 
 const accountSchema: Schema = new Schema<IAccount>({
     accountNumber: {

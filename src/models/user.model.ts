@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IUser } from "../interface/models-interfaces/model.interface";
+import { IUser } from "../interface/models-interfaces/interface";
 
 const userSchema: Schema = new Schema<IUser>({
     name: {
@@ -22,7 +22,8 @@ const userSchema: Schema = new Schema<IUser>({
     },
     isLocked: {
         type: Boolean,
-        required: false
+        required: false,
+        default: false,
     },
     failedAttempts: {
         type: Number,
