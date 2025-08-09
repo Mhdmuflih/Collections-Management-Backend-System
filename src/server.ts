@@ -11,6 +11,7 @@ dotenv.config();    // env configuration.
 const app: Application = express();
 
 app.use(cors());    //cors set up.
+app.use(express.json());
 
 let port: number = Number(process.env.PORT) || 3000;
 const startServer = async () => {

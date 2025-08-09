@@ -1,5 +1,5 @@
 import mongoose, { model, Schema } from "mongoose";
-import { IActivity } from "../interface/interface";
+import { IActivity } from "../interface/models-interfaces/model.interface";
 
 const activitySchema: Schema = new Schema<IActivity>({
     account: {
