@@ -3,8 +3,10 @@ import { IActivityRepository } from "../interface/services-interface/IActivityRe
 import Activity from "../models/activity.model";
 import { BaseRepository } from "./base.respository";
 
-export class ActivityRepository extends BaseRepository<IActivity> implements IActivityRepository {
+class ActivityRepository extends BaseRepository<IActivity> implements IActivityRepository {
     constructor() {
         super(Activity);
     }
 }
+
+export default new ActivityRepository();

@@ -3,8 +3,10 @@ import { IPaymentRepository } from "../interface/repositories-interfaces/IPaymen
 import Payment from "../models/payment.model";
 import { BaseRepository } from "./base.respository";
 
-export class PaymentRepository extends BaseRepository<IPayment> implements IPaymentRepository {
+class PaymentRepository extends BaseRepository<IPayment> implements IPaymentRepository {
     constructor() {
         super(Payment);
     }
 }
+
+export default new PaymentRepository()

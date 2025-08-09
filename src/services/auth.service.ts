@@ -1,5 +1,6 @@
+import { IUserRepository } from "../interface/repositories-interfaces/IUserRepository";
 import { IAuthService } from "../interface/services-interface/IAuthService";
 
 export class AuthService implements IAuthService {
-    constructor() { }
+    constructor(private userRepository: IUserRepository) { }
 }

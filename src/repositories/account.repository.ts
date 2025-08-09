@@ -3,8 +3,10 @@ import { IAccountRepository } from "../interface/repositories-interfaces/IAccoun
 import Account from "../models/account.model";
 import { BaseRepository } from "./base.respository";
 
-export class AccountRepository extends BaseRepository<IAccount> implements IAccountRepository {
+class AccountRepository extends BaseRepository<IAccount> implements IAccountRepository {
     constructor() {
         super(Account);
     }
 }
+
+export default new AccountRepository();

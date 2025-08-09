@@ -3,8 +3,10 @@ import { IUserRepository } from "../interface/repositories-interfaces/IUserRepos
 import User from "../models/user.model";
 import { BaseRepository } from "./base.respository";
 
-export class UserRepository extends BaseRepository<IUser> implements IUserRepository {
+class UserRepository extends BaseRepository<IUser> implements IUserRepository {
     constructor() {
         super(User);
     }
 }
+
+export default new UserRepository();
