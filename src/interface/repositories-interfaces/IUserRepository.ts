@@ -1,4 +1,4 @@
-import { ICreateUser } from "../interface";
+import { ICreateUser, ILoginUser } from "../interface";
 import { IUser } from "../models-interfaces/interface";
 
 export interface IUserRepository {

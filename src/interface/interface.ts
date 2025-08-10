@@ -4,3 +4,8 @@ export interface ICreateUser {
     password: string;
     role: "Admin" | "Manager" | "Agent" | "Viewer" 
 }
+
+export interface ILoginUser {
+    email: string;
+    password: string;
+}

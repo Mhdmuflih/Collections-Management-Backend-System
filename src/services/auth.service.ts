@@ -1,9 +1,10 @@
+import { generateAccessToken, generateRefreshToken } from "../config/jwt";
 import { MESSAGES } from "../constants/messages";
-import { ICreateUser } from "../interface/interface";
+import { ICreateUser, ILoginUser } from "../interface/interface";
 import { IUser } from "../interface/models-interfaces/interface";
 import { IUserRepository } from "../interface/repositories-interfaces/IUserRepository";
 import { IAuthService } from "../interface/services-interface/IAuthService";
-import { passwordHashing } from "../utilities/bcrypt";
+import { passwordCompaire, passwordHashing } from "../utilities/bcrypt";
 
 export class AuthService implements IAuthService {
     constructor(private userRepository: IUserRepository) { }
@@ -32,6 +33,35 @@ export class AuthService implements IAuthService {
                 console.log("Failed to registration service.", error.message);
                 throw new Error(`Error creating user servcie ${error.message}`);
             }
+        }
+    }
+
+    async login(loginData: ILoginUser): Promise<{accessToken: string, refreshToken: string, userData:IUser}> {
+        try {
+            const userData: IUser | null = await this.userRepository.findByEmail(loginData.email);
+            if(!userData) {
+                throw new Error(MESSAGES.USER_NOT_FOUND);
+            }
+
+            if(userData.isLocked) {
+                throw new Error(MESSAGES.USER_BLOCKED);
+            }
+
+            const compairePassword: boolean | undefined = await passwordCompaire(loginData.password, userData.password);
+            if(!compairePassword) {
+                throw new Error(MESSAGES.PASSWORD_IS_INCORRECT);
+            }
+
+            const accessToken: string = generateAccessToken(userData.id.toString() as string, userData.role);
+            const refreshToken: string = generateRefreshToken(userData.id.toString() as string, userData.role);
+            console.log(compairePassword, 'this is compaired password.');
+            return {accessToken, refreshToken, userData};
+        } catch (error: unknown) {
+            if(error instanceof Error) {
+                console.log("Failed to login service.", error.message);
+                throw new Error(`Error login user service ${error.message}`);
+            }
+            throw new Error("An unknown error occurred during login.");
         }
     }
 }
