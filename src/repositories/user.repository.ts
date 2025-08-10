@@ -1,3 +1,4 @@
+import { JwtPayload } from "jsonwebtoken";
 import { ICreateUser, ILoginUser } from "../interface/interface";
 import { IUser } from "../interface/models-interfaces/interface";
 import { IUserRepository } from "../interface/repositories-interfaces/IUserRepository";
@@ -23,11 +24,22 @@ class UserRepository extends BaseRepository<IUser> implements IUserRepository {
     async createUser(data: ICreateUser): Promise<IUser | null> {
         try {
             return this.create(data);
-        } catch (error:unknown) {
-            if(error instanceof Error) {
+        } catch (error: unknown) {
+            if (error instanceof Error) {
                 throw new Error(`Error in createUser: ${error.message}`);
             }
             throw new Error("Unknown error in create user");
+        }
+    }
+
+    async findById(userId: string | JwtPayload | undefined): Promise<IUser | null> {
+        try {
+            return this.findOne({ _id: userId });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new Error(`Error in findById: ${error.message}`);
+            }
+            throw new Error("Unkown error in findById.");
         }
     }
 }

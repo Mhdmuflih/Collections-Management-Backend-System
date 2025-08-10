@@ -6,5 +6,5 @@ export const MESSAGES = {
     PASSWORD_IS_INCORRECT:  "Password is Incorrect",
     LOGIN_SUCCESSFULL: "Login Successfull",
     USER_BLOCKED: "User is Blocked, contact admin.",
-    
+    TOKEN_NOT_FOUND: "Token is not found.",
 }

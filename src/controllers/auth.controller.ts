@@ -43,4 +43,21 @@ export class AuthController implements IAuthController {
             res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ success: false, message: "An Unknown error occured while login" });
         }
     }
+
+    async validateRefreshToken(req: Request, res: Response): Promise<void> {
+        try {
+            const { refreshToken } = req.body;
+            if(!refreshToken) {
+                res.status(HTTP_STATUS.BAD_REQUEST).json({success: false, message: MESSAGES.TOKEN_NOT_FOUND});
+            }
+            await this.authService.validateRefreshToken(refreshToken);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.log("Failed to refresh token validation controller.");
+                res.status(HTTP_STATUS.BAD_REQUEST).json({ success: false, message: error.message });
+            }
+            console.log("Unknown error during refresh token validation.");
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ success: false, message: "An Unknown error occured while refresh token validation." });
+        }
+    }
 }

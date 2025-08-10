@@ -1,4 +1,7 @@
+import { configDotenv } from "dotenv";
 import jwt from "jsonwebtoken";
+
+configDotenv();
 
 const JWT_ACCESS_SECRET: string | undefined = process.env.JWT_ACCESS_SECRET;
 const JWT_REFRESH_SECRET: string | undefined = process.env.JWT_REFRESH_SECRET;

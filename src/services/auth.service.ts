@@ -1,4 +1,4 @@
-import { generateAccessToken, generateRefreshToken } from "../config/jwt";
+import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from "../config/jwt";
 import { MESSAGES } from "../constants/messages";
 import { ICreateUser, ILoginUser } from "../interface/interface";
 import { IUser } from "../interface/models-interfaces/interface";
@@ -54,7 +54,6 @@ export class AuthService implements IAuthService {
 
             const accessToken: string = generateAccessToken(userData.id.toString() as string, userData.role);
             const refreshToken: string = generateRefreshToken(userData.id.toString() as string, userData.role);
-            console.log(compairePassword, 'this is compaired password.');
             return {accessToken, refreshToken, userData};
         } catch (error: unknown) {
             if(error instanceof Error) {
@@ -62,6 +61,27 @@ export class AuthService implements IAuthService {
                 throw new Error(`Error login user service ${error.message}`);
             }
             throw new Error("An unknown error occurred during login.");
+        }
+    }
+
+    async validateRefreshToken(checkRefreshToken: string): Promise<{ accessToken: string; refreshToken: string; userData: IUser; }> {
+        try {
+            const decode: any = verifyRefreshToken(checkRefreshToken);
+            console.log(decode,'this is decode data from refresh token');
+            const userData = await this.userRepository.findById(decode.userId);
+            if(!userData) {
+                throw new Error(MESSAGES.USER_NOT_FOUND);
+            }
+
+            const accessToken: string = generateAccessToken(userData.id.toString() as string, userData.role);
+            const refreshToken: string = generateRefreshToken(userData.id.toString() as string, userData.role);
+            return {accessToken, refreshToken, userData};
+        } catch (error: unknown) {
+            if(error instanceof Error) {
+                console.log("Failed to refresh token valid service.");
+                throw new Error(`Error refresh token valid service ${error.message}`);
+            }
+            throw new Error("An unknown error occurred during refresh token valid.");
         }
     }
 }
