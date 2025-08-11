@@ -1,4 +1,5 @@
 import { JwtPayload } from "jsonwebtoken";
+import { Types } from "mongoose";
 
 export interface ICreateUser {
     name: string;
@@ -16,3 +17,12 @@ export interface IAuthTokenPayload extends JwtPayload {
     userId: string;
     role: string;
 };
+
+
+export interface ICreateAccount {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    createdBy: Types.ObjectId;
+}

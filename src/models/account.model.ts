@@ -36,6 +36,6 @@ const accountSchema: Schema = new Schema<IAccount>({
     updatedAt: {
         type: Date
     }
-});
+}, {timestamps: true});
 
 export default model<IAccount>("Account", accountSchema);

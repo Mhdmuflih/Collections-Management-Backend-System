@@ -26,7 +26,7 @@ export class AuthService implements IAuthService {
             if (!createUser) {
                 throw new Error(MESSAGES.FAILED_TO_CREATE);
             }
-            return null;
+            return createUser;
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.log("Failed to registration service.", error.message);

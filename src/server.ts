@@ -15,7 +15,10 @@ dotenv.config();            // env configuration.
 const app: Application = express();
 
 app.use(cors());            //cors set up.
+
+// body parsing
 app.use(express.json());    // convert to json format
+app.use(express.urlencoded({ extended: true }));
 
 
 // Routes

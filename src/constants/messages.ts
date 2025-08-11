@@ -7,4 +7,7 @@ export const MESSAGES = {
     LOGIN_SUCCESSFULL: "Login Successfull",
     USER_BLOCKED: "User is Blocked, contact admin.",
     TOKEN_NOT_FOUND: "Token is not found.",
+    ACCOUNT_CREATED_SUCCESSFULL: "Account Create Successfull",
+    ACCOUNT_CREATION_FAILED: "Failed to create account.",
+    ACCOUNT_NUMBER_GENERATION_FAILED: "Failed to generate account number",
 }

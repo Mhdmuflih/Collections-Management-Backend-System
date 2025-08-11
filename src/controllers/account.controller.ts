@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { IAccountController } from "../interface/controllers-interfaces/IAccountControllers";
 import { IAccountService } from "../interface/services-interface/IAccountService";
 import { HTTP_STATUS } from "../constants/http-status";
+import { MESSAGES } from "../constants/messages";
 
 export class AccountController implements IAccountController {
     constructor(private accountService: IAccountService) { }
@@ -21,8 +22,18 @@ export class AccountController implements IAccountController {
 
     async createAccount(req: Request, res: Response): Promise<void> {
         try {
-            console.log(req.body, 'this is account details data from account service');
+            console.log(req.body, 'this is account creating data from controler');
+            const {name, email, phone, address} = req.body;
+            const userId = req.headers['x-user-id'];
+            console.log(userId, req.body);
+            if(!name || !email || !phone || !address || !userId) {
+                res.status(HTTP_STATUS.BAD_REQUEST).json({success: false, message: MESSAGES.ALL_FIELD_REQUIRED});
+                return;
+            }
 
+            const data = await this.accountService.createAccount(req.body, userId as string);
+            console.log(data, "this is that dat from the create account");
+            res.status(HTTP_STATUS.SUCCESS).json({success: true, message: MESSAGES.ACCOUNT_CREATED_SUCCESSFULL});
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.log("Failed to create account controller", error.message);

@@ -27,10 +27,9 @@ export const generateRefreshToken = (userId: string, role: string): string => {
     );
 };
 
-export const verifyAccessToken = (token: string): string | jwt.JwtPayload | undefined => {
+export const verifyAccessToken = (token: string): IAuthTokenPayload => {
     try {
-        const decode = jwt.verify(token, JWT_ACCESS_SECRET as string);
-        console.log(decode);
+        const decode = jwt.verify(token, JWT_ACCESS_SECRET as string) as IAuthTokenPayload;
         return decode;
     } catch (error: unknown) {
         if (error instanceof jwt.TokenExpiredError) {
