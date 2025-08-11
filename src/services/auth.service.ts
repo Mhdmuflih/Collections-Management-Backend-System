@@ -48,7 +48,12 @@ export class AuthService implements IAuthService {
 
             const compairePassword: boolean | undefined = await passwordCompaire(loginData.password, userData.password);
             if (!compairePassword) {
+                await this.userRepository.updateFailedToAttempt(userData.id.toString());
                 throw new Error(MESSAGES.PASSWORD_IS_INCORRECT);
+            }
+
+            if (userData.failedAttempts && userData.failedAttempts > 0) {
+                await this.userRepository.resetFailedAttempts(userData.id.toString());
             }
 
             const accessToken: string = generateAccessToken(userData.id.toString() as string, userData.role);

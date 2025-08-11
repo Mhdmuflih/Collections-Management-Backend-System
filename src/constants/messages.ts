@@ -3,6 +3,7 @@ export const MESSAGES = {
     FAILED_TO_CREATE: "Failed To create user!",
     ALL_FIELD_REQUIRED: "All Field is required!",
     USER_NOT_FOUND: "User not found.",
+    USER_NOT_FOUND_WHILE_UPDATING_FAILED_ATTMPTS: "User not found while updating failed attempts",
     PASSWORD_IS_INCORRECT:  "Password is Incorrect",
     LOGIN_SUCCESSFULL: "Login Successfull",
     USER_BLOCKED: "User is Blocked, contact admin.",
@@ -10,4 +11,14 @@ export const MESSAGES = {
     ACCOUNT_CREATED_SUCCESSFULL: "Account Create Successfull",
     ACCOUNT_CREATION_FAILED: "Failed to create account.",
     ACCOUNT_NUMBER_GENERATION_FAILED: "Failed to generate account number",
+    ACCOUNTS_FETCH_SUCCESSFULL: "All accounts fetched successfully",
+    PAGE_LIMITS_ARE_REQUIRED: "Page and limit are required",
+    GET_ALL_ACCOUTS_FAILD: "Get all Accouts data fetch failed",
+    ACCOUNT_NOT_FOUND: "Get Account is not found.",
+    ACCOUNT_FETCH_SUCCESSFULL: "Accounts fetched successfully",
+    ACCOUNT_DETAILS_UPDATED: "Account Details updated successfull.",
+    ACCOUNT_UPDATE_FAILED: "Account update failed.",
+    ACCOUNT_SOFT_DELETED: "Account soft deleted.",
+    ACCOUNT_SOFT_DELETE_FAILED: "Account soft delete failed.",
+    ALREADY_DELETED_ACCOUNT: "Already deleted account."
 }

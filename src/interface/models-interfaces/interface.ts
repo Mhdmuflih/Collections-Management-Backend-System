@@ -19,6 +19,7 @@ export interface IAccount extends Document {
     address: string;
     status: "Active" | "Inactive" | "Deleted";
     balance: number;
+    isDeleted: boolean;
     createdBy: Types.ObjectId;
     createdAt?: Date;
     updatedAt?: Date;

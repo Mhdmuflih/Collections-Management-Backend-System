@@ -6,4 +6,6 @@ export interface IUserRepository {
     findByEmail(email: string): Promise<IUser | null>;
     createUser(data: ICreateUser): Promise<IUser | null>;
     findById(userId: string | JwtPayload | undefined): Promise<IUser | null>
+    updateFailedToAttempt(userId: string): Promise<IUser | null>;
+    resetFailedAttempts(userId: string): Promise<IUser | null>;
 }

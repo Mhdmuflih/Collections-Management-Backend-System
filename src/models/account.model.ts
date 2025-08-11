@@ -25,6 +25,10 @@ const accountSchema: Schema = new Schema<IAccount>({
         enum: ["Active", "Inactive", "Deleted"],
         default: "Active"
     },
+    isDeleted: {
+        type: Boolean,
+        default: false
+    },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
