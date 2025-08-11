@@ -65,8 +65,7 @@ export class AuthService implements IAuthService {
 
     async validateRefreshToken(checkRefreshToken: string): Promise<{ accessToken: string; refreshToken: string; userData: IUser; }> {
         try {
-            const decode: any = verifyRefreshToken(checkRefreshToken);
-            console.log(decode, 'this is decode data from refresh token');
+            const decode = verifyRefreshToken(checkRefreshToken);
             const userData = await this.userRepository.findById(decode.userId);
             if (!userData) {
                 throw new Error(MESSAGES.USER_NOT_FOUND);

@@ -1,5 +1,6 @@
 import { configDotenv } from "dotenv";
 import jwt from "jsonwebtoken";
+import { IAuthTokenPayload } from "../interface/interface";
 
 configDotenv();
 
@@ -42,9 +43,9 @@ export const verifyAccessToken = (token: string): string | jwt.JwtPayload | unde
     }
 };
 
-export const verifyRefreshToken = (token: string): string | jwt.JwtPayload | undefined => {
+export const verifyRefreshToken = (token: string): IAuthTokenPayload => {
     try {
-        const decode = jwt.verify(token, JWT_REFRESH_SECRET as string);
+        const decode = jwt.verify(token, JWT_REFRESH_SECRET as string) as IAuthTokenPayload;
         return decode;
     } catch (error: unknown) {
         if (error instanceof jwt.TokenExpiredError) {

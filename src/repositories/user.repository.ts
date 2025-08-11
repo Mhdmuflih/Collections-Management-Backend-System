@@ -32,7 +32,7 @@ class UserRepository extends BaseRepository<IUser> implements IUserRepository {
         }
     }
 
-    async findById(userId: string | JwtPayload | undefined): Promise<IUser | null> {
+    async findById(userId: string): Promise<IUser | null> {
         try {
             return this.findOne({ _id: userId });
         } catch (error: unknown) {

@@ -31,6 +31,7 @@ export class AuthController implements IAuthController {
             const { email, password } = req.body;
             if (!email || !password) {
                 res.status(HTTP_STATUS.BAD_REQUEST).json({ success: false, message: MESSAGES.ALL_FIELD_REQUIRED });
+                return;
             }
             const { accessToken, refreshToken, userData } = await this.authService.login(req.body);
             res.status(HTTP_STATUS.SUCCESS).json({ success: true, message: MESSAGES.LOGIN_SUCCESSFULL, accessToken, refreshToken, userData })
@@ -46,11 +47,13 @@ export class AuthController implements IAuthController {
 
     async validateRefreshToken(req: Request, res: Response): Promise<void> {
         try {
-            const { refreshToken } = req.body;
-            if(!refreshToken) {
+            const { checkRefreshToken } = req.body;
+            if(!checkRefreshToken) {
                 res.status(HTTP_STATUS.BAD_REQUEST).json({success: false, message: MESSAGES.TOKEN_NOT_FOUND});
+                return;
             }
-            await this.authService.validateRefreshToken(refreshToken);
+            const {accessToken, refreshToken, userData} = await this.authService.validateRefreshToken(checkRefreshToken);
+            res.status(HTTP_STATUS.SUCCESS).json({success: true, message: "new access token and refresh token created.", accessToken, refreshToken, userData});
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.log("Failed to refresh token validation controller.");
