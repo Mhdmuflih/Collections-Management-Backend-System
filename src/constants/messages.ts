@@ -8,6 +8,7 @@ export const MESSAGES = {
     LOGIN_SUCCESSFULL: "Login Successfull",
     USER_BLOCKED: "User is Blocked, contact admin.",
     TOKEN_NOT_FOUND: "Token is not found.",
+
     ACCOUNT_CREATED_SUCCESSFULL: "Account Create Successfull",
     ACCOUNT_CREATION_FAILED: "Failed to create account.",
     ACCOUNT_NUMBER_GENERATION_FAILED: "Failed to generate account number",
@@ -20,5 +21,12 @@ export const MESSAGES = {
     ACCOUNT_UPDATE_FAILED: "Account update failed.",
     ACCOUNT_SOFT_DELETED: "Account soft deleted.",
     ACCOUNT_SOFT_DELETE_FAILED: "Account soft delete failed.",
-    ALREADY_DELETED_ACCOUNT: "Already deleted account."
+    ALREADY_DELETED_ACCOUNT: "Already deleted account.",
+
+    PAYMENT_CREATE_SUCCESSFULL: "Payment created successfull.",
+    PAYMENT_FAILED_TO_CREATE: "Payment failed to create.",
+    PAYMENT_FETCH_SUCCESSFULL: "Payment fetch successfull.",
+    PAYMENTDATA_NOT_FOUND: "Payment data not found.",
+    PAYMENT_VARIFIED: "Payment verfied.",
+    PAYMENT_NOT_FOUND: "Payment not found.",
 }

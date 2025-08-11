@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { generateAccountNumber } from "../config/generate-account";
+import { generateAccountNumber } from "../utilities/generate-account";
 import { MESSAGES } from "../constants/messages";
 import { ICreateAccount } from "../interface/interface";
 import { IAccount } from "../interface/models-interfaces/interface";

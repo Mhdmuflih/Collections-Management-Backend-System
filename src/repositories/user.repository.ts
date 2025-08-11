@@ -1,5 +1,4 @@
-import { JwtPayload } from "jsonwebtoken";
-import { ICreateUser, ILoginUser } from "../interface/interface";
+import { ICreateUser } from "../interface/interface";
 import { IUser } from "../interface/models-interfaces/interface";
 import { IUserRepository } from "../interface/repositories-interfaces/IUserRepository";
 import User from "../models/user.model";

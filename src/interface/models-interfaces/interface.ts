@@ -30,7 +30,7 @@ export interface IPayment extends Document {
     account : Types.ObjectId;
     amount: number;
     status: "pending" | "complete" | "failed";
-    method: "string";
+    method: string;
     paymentDate: Date;
     recordedBy: Types.ObjectId;
 }

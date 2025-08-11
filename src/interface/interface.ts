@@ -26,3 +26,11 @@ export interface ICreateAccount {
     address: string;
     createdBy: Types.ObjectId;
 }
+
+
+export interface ICreatePayment {
+    account: Types.ObjectId;
+    amount: number;
+    method: string;
+    recordedBy: Types.ObjectId;
+}
