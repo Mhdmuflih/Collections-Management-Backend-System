@@ -16,7 +16,6 @@ export class AuthService implements IAuthService {
                 throw new Error(MESSAGES.ALLREADY_EXISTED_EMAIL);
             }
             const hashedPassword: string | undefined = await passwordHashing(data.password);
-            console.log(hashedPassword, 'this is hashed password');
             const user: ICreateUser = {
                 name: data.name,
                 email: data.email,
@@ -36,27 +35,27 @@ export class AuthService implements IAuthService {
         }
     }
 
-    async login(loginData: ILoginUser): Promise<{accessToken: string, refreshToken: string, userData:IUser}> {
+    async login(loginData: ILoginUser): Promise<{ accessToken: string, refreshToken: string, userData: IUser }> {
         try {
             const userData: IUser | null = await this.userRepository.findByEmail(loginData.email);
-            if(!userData) {
+            if (!userData) {
                 throw new Error(MESSAGES.USER_NOT_FOUND);
             }
 
-            if(userData.isLocked) {
+            if (userData.isLocked) {
                 throw new Error(MESSAGES.USER_BLOCKED);
             }
 
             const compairePassword: boolean | undefined = await passwordCompaire(loginData.password, userData.password);
-            if(!compairePassword) {
+            if (!compairePassword) {
                 throw new Error(MESSAGES.PASSWORD_IS_INCORRECT);
             }
 
             const accessToken: string = generateAccessToken(userData.id.toString() as string, userData.role);
             const refreshToken: string = generateRefreshToken(userData.id.toString() as string, userData.role);
-            return {accessToken, refreshToken, userData};
+            return { accessToken, refreshToken, userData };
         } catch (error: unknown) {
-            if(error instanceof Error) {
+            if (error instanceof Error) {
                 console.log("Failed to login service.", error.message);
                 throw new Error(`Error login user service ${error.message}`);
             }
@@ -67,17 +66,17 @@ export class AuthService implements IAuthService {
     async validateRefreshToken(checkRefreshToken: string): Promise<{ accessToken: string; refreshToken: string; userData: IUser; }> {
         try {
             const decode: any = verifyRefreshToken(checkRefreshToken);
-            console.log(decode,'this is decode data from refresh token');
+            console.log(decode, 'this is decode data from refresh token');
             const userData = await this.userRepository.findById(decode.userId);
-            if(!userData) {
+            if (!userData) {
                 throw new Error(MESSAGES.USER_NOT_FOUND);
             }
 
             const accessToken: string = generateAccessToken(userData.id.toString() as string, userData.role);
             const refreshToken: string = generateRefreshToken(userData.id.toString() as string, userData.role);
-            return {accessToken, refreshToken, userData};
+            return { accessToken, refreshToken, userData };
         } catch (error: unknown) {
-            if(error instanceof Error) {
+            if (error instanceof Error) {
                 console.log("Failed to refresh token valid service.");
                 throw new Error(`Error refresh token valid service ${error.message}`);
             }
