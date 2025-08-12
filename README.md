@@ -1,5 +1,5 @@
 Collections Management Platform – Backend API
-
+==========================================================================
 
 This is a high-performance Node.js backend application designed for a Collections Management Platform, built using Repository-Based Architecture and following SOLID principles for maintainability and scalability.
 The system uses MongoDB for data storage, Redis for caching, and JWT-based authentication for secure access control.
@@ -66,6 +66,7 @@ Features
 
 
 Project Structure
+==========================================================================
 
 src/
 │── config/         # Environment, DB, cache configs
@@ -79,7 +80,6 @@ src/
 │── tests/          # Unit & integration tests
 │── app.ts          # Express app initialization
 │── server.ts       # Server startup
-
 
 
 Performance Benchmarks
