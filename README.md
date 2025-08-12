@@ -9,6 +9,7 @@ The API is designed to handle 10,000+ concurrent connections, process 50,000+ AP
 
 Tech Stack
 --------------------------------------------------------------------------
+* Language: TypeScript
 * Runtime: Node.js (v18+)
 * Framework: Express.js
 * Database: MongoDB (Mongoose ODM)
@@ -75,6 +76,7 @@ src/
 │── services/       # Business logic
 │── repositories/   # Database queries
 │── models/         # Mongoose schemas
+│── interface/      # Interfaces 
 │── middlewares/    # Auth, validation, error handling
 │── utils/          # Helpers, constants
 │── tests/          # Unit & integration tests

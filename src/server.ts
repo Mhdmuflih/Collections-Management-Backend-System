@@ -12,14 +12,14 @@ import morgan from "morgan";
 import logger from "./middlewares/logger.middleware";
 import { HTTP_STATUS } from "./constants/http-status";
 import { MESSAGES } from "./constants/messages";
+import { swaggerSpec, swaggerUi } from "./config/swagger";
 // ============================================================
 
-dotenv.config();            // env configuration.
+dotenv.config();
 
 const app: Application = express();
 
-app.use(cors());            //cors set up.
-
+app.use(cors());
 app.use(morgan("tiny"));
 
 // Custom logging middleware
@@ -31,9 +31,13 @@ app.use((req, res, next) => {
 // ============================================================
 
 // body parsing
-app.use(express.json());    // convert to json format
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Swagger Docs Route
+// ============================================================
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// ============================================================
 
 // Routes
 // ============================================================
@@ -44,9 +48,8 @@ app.use("/api", Activity_Routes);
 // ============================================================
 
 
-// 404 error throw
+// 404 error throw // after all routes
 // ============================================================
-// after all routes
 app.all(/.*/, (req: Request, res: Response) => {
     res.status(HTTP_STATUS.NOT_FOUND).json({ message: MESSAGES.ROUTE_NOT_FOUND });
 });
