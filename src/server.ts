@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import dotenv from 'dotenv';
 import cors from "cors";
+import compression from "compression";
 
 // ============================================================
 import { connectDB } from "./config/database.connection";
@@ -23,6 +24,8 @@ const app: Application = express();
 
 app.use(cors());
 app.use(morgan("tiny"));
+
+app.use(compression());
 
 // Custom logging middleware
 // ============================================================
@@ -48,7 +51,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Routes
 // ============================================================
 app.use("/api/auth", Auth_Routes);
-app.use("/api/account", Account_Routes);
+app.use("/api/accounts", Account_Routes);
 app.use("/api", Payment_Routes);
 app.use("/api", Activity_Routes);
 app.use("/api", Health_Route);      //helath check for the route

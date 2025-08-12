@@ -178,8 +178,8 @@ const Payment_Routes = Router();
  *         description: Bad request (missing payment ID)
  */
 
-Payment_Routes.post("/account/:id/payments", authMiddleware, paymentController.recordPayment.bind(paymentController));
-Payment_Routes.get("/account/:id/payments", authMiddleware, paymentController.getPaymentHistory.bind(paymentController));
+Payment_Routes.post("/accounts/:id/payments", authMiddleware, paymentController.recordPayment.bind(paymentController));
+Payment_Routes.get("/accounts/:id/payments", authMiddleware, paymentController.getPaymentHistory.bind(paymentController));
 Payment_Routes.put("/payments/:id", authMiddleware, paymentController.updatePaymentStatus.bind(paymentController));
 
 export default Payment_Routes;

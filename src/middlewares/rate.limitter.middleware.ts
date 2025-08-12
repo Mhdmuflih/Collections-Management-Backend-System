@@ -1,4 +1,4 @@
-import rateLimit from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import { Request } from 'express';
 
 const rateLimiter = rateLimit({
@@ -7,9 +7,6 @@ const rateLimiter = rateLimit({
   message: 'Too many requests from this user, please try again later.',
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: (req: Request): string => {
-    return req.ip as string;
-  },
 });
 
 export default rateLimiter;

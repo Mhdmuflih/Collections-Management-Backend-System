@@ -17,6 +17,7 @@ export class AccountController implements IAccountController {
                 throw new Error(MESSAGES.PAGE_LIMITS_ARE_REQUIRED);
             }
 
+
             const { total, accountData } = await this.accountService.getAllAccountData(page, limit, search);
             res.status(HTTP_STATUS.SUCCESS).json({ success: true, message: MESSAGES.ACCOUNTS_FETCH_SUCCESSFULL, total, accountData: accountData });
         } catch (error: unknown) {
