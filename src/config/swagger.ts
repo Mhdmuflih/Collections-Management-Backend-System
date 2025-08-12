@@ -9,7 +9,7 @@ const swaggerOptions: Options = {
     swaggerDefinition: {
         openapi: '3.0.0',
         info: {
-            title: 'Your API Documentation',
+            title: 'Collection Management API Documentation',
             version: '1.0.0',
             description: 'API documentation for your Node.js application',
         },

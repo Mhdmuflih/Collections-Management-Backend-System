@@ -13,6 +13,7 @@ import logger from "./middlewares/logger.middleware";
 import { HTTP_STATUS } from "./constants/http-status";
 import { MESSAGES } from "./constants/messages";
 import { swaggerSpec, swaggerUi } from "./config/swagger";
+import Health_Route from "./routes/health.route";
 // ============================================================
 
 dotenv.config();
@@ -45,6 +46,7 @@ app.use("/api/auth", Auth_Routes);
 app.use("/api/account", Account_Routes);
 app.use("/api", Payment_Routes);
 app.use("/api", Activity_Routes);
+app.use("/api", Health_Route);      //helath check for the route
 // ============================================================
 
 
@@ -53,7 +55,6 @@ app.use("/api", Activity_Routes);
 app.all(/.*/, (req: Request, res: Response) => {
     res.status(HTTP_STATUS.NOT_FOUND).json({ message: MESSAGES.ROUTE_NOT_FOUND });
 });
-
 // ============================================================
 
 
@@ -63,5 +64,5 @@ const startServer = async () => {
     app.listen(port, () => {
         console.log(`Server Is Running on http://localhost${port}`);
     });
-}
+};
 startServer();
