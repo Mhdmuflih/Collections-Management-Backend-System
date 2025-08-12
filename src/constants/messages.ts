@@ -1,4 +1,8 @@
 export const MESSAGES = {
+    ROUTE_NOT_FOUND: "Route not found",
+    UNAUTHORIZED: "Unauthorized",
+    FORBIDDEN: "Forbidden: Invalid token",
+
     ALLREADY_EXISTED_EMAIL: "This email is already registered.",
     FAILED_TO_CREATE: "Failed To create user!",
     ALL_FIELD_REQUIRED: "All Field is required!",

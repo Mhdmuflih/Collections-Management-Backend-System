@@ -10,6 +10,8 @@ import Payment_Routes from "./routes/payment.routes";
 import Activity_Routes from "./routes/activity.routes";
 import morgan from "morgan";
 import logger from "./middlewares/logger.middleware";
+import { HTTP_STATUS } from "./constants/http-status";
+import { MESSAGES } from "./constants/messages";
 // ============================================================
 
 dotenv.config();            // env configuration.
@@ -28,14 +30,6 @@ app.use((req, res, next) => {
 });
 // ============================================================
 
-
-// 404 error throw
-// ============================================================
-app.use("*", (req: Request, res: Response) => {
-    res.status(404).json({ message: "Route not found" });
-});
-// ============================================================
-
 // body parsing
 app.use(express.json());    // convert to json format
 app.use(express.urlencoded({ extended: true }));
@@ -47,6 +41,16 @@ app.use("/api/auth", Auth_Routes);
 app.use("/api/account", Account_Routes);
 app.use("/api", Payment_Routes);
 app.use("/api", Activity_Routes);
+// ============================================================
+
+
+// 404 error throw
+// ============================================================
+// after all routes
+app.all(/.*/, (req: Request, res: Response) => {
+    res.status(HTTP_STATUS.NOT_FOUND).json({ message: MESSAGES.ROUTE_NOT_FOUND });
+});
+
 // ============================================================
 
 
