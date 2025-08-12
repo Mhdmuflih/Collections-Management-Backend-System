@@ -3,8 +3,7 @@ The system uses MongoDB for data storage, Redis for caching, and JWT-based authe
 
 The API is designed to handle 10,000+ concurrent connections, process 50,000+ API requests per minute, and maintain an average response time of <200ms.
 
-==================================================================================================================================
-
+==========================================================================
 
 Tech Stack
 --------------------------------------------------------------------------
@@ -65,7 +64,7 @@ Rate limiting
 
 
 Project Structure
-==================================================================================================================================
+==========================================================================
 
 src/
 │── config/         # Environment, DB, cache configs
@@ -80,7 +79,7 @@ src/
 │── app.ts          # Express app initialization
 │── server.ts       # Server startup
 
-==================================================================================================================================
+==========================================================================
 
 
 Performance Benchmarks
@@ -107,3 +106,6 @@ GraphQL support alongside REST
 Event-driven architecture with RabbitMQ/Kafka
 Admin dashboard for analytics
 Data encryption at rest
+
+
+==========================================================================
