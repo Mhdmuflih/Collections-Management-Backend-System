@@ -1,5 +1,6 @@
 export const MESSAGES = {
     ROUTE_NOT_FOUND: "Route not found",
+    ACCESS_DENIED: "Access denied",
     UNAUTHORIZED: "Unauthorized",
     FORBIDDEN: "Forbidden: Invalid token",
 

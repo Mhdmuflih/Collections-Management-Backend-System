@@ -26,6 +26,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
         const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET || "access_secret") as JwtPayload;
         console.log("Decoded:", decoded);
         req.headers['x-user-id'] = decoded.userId;
+        req.headers['x-user-role'] = decoded.role;
 
         next();
     } catch (error: any) {
