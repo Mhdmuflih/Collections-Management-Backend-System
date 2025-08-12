@@ -34,4 +34,11 @@ export const MESSAGES = {
     PAYMENTDATA_NOT_FOUND: "Payment data not found.",
     PAYMENT_VARIFIED: "Payment verfied.",
     PAYMENT_NOT_FOUND: "Payment not found.",
+
+    ACTIVITY_CREATED: "Activity created successfull.",
+    ACTIVITY_NOT_FOUND: "Activity not found.",
+    ACTIVITY_FETCHED_SUCCESSFULL: "Activity fetched successfull.",
+    ACTIVITY_FAILED_TO_FETCH: "Activity failed to fetch.",
+    ACTIVITY_BULK_DATA_FETCHED_SUCCESSFULL: "Activity bulked data fetched successfull.",
+    ACTIVITY_BULK_DATA_FETCHED_FAILED: "Activity bulked data fetched failed.",
 }

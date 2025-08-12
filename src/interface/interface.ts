@@ -34,3 +34,11 @@ export interface ICreatePayment {
     method: string;
     recordedBy: Types.ObjectId;
 }
+
+
+export interface ICreateActivity {
+    account: Types.ObjectId;
+    action: string;
+    performedBy: Types.ObjectId;
+    description?: string;
+}

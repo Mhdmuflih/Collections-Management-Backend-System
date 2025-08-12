@@ -27,6 +27,6 @@ const paymentSchema: Schema = new Schema<IPayment>({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
-});
+},{timestamps: true});
 
 export default model<IPayment>("Payment", paymentSchema);

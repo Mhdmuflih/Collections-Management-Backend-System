@@ -22,6 +22,6 @@ const activitySchema: Schema = new Schema<IActivity>({
         type: Date,
         default: Date.now
     }
-});
+}, {timestamps: true});
 
 export default model<IActivity>("Activity", activitySchema);
