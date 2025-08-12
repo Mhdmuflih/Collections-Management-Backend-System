@@ -7,60 +7,60 @@ The API is designed to handle 10,000+ concurrent connections, process 50,000+ AP
 
 Tech Stack
 --------------------------------------------------------------------------
-Runtime: Node.js (v18+)
-Framework: Express.js
-Database: MongoDB (Mongoose ODM)
-Caching: Redis
-Authentication: JWT (Access & Refresh Tokens)
-Security: Bcrypt password hashing, input validation, CORS configuration
-Documentation: Swagger / OpenAPI
-Testing: Jest / Supertest
-Containerization: Docker
+* Runtime: Node.js (v18+)
+* Framework: Express.js
+* Database: MongoDB (Mongoose ODM)
+* Caching: Redis
+* Authentication: JWT (Access & Refresh Tokens)
+* Security: Bcrypt password hashing, input validation, CORS configuration
+* Documentation: Swagger / OpenAPI
+* Testing: Jest / Supertest
+* Containerization: Docker
 
 Architecture
 --------------------------------------------------------------------------
-The application is built on a Repository-Based Architecture with the following layers:
-Routes Layer – Handles incoming HTTP requests.
-Controller Layer – Manages request/response flow.
-Service Layer – Implements business logic.
-Repository Layer – Handles database operations.
-Models Layer – Defines MongoDB schemas.
-Utilities & Middlewares – Authentication, validation, error handling.
-Config Layer – Environment variables, database, and cache configuration.
+* The application is built on a Repository-Based Architecture with the following layers:
+* Routes Layer – Handles incoming HTTP requests.
+* Controller Layer – Manages request/response flow.
+* Service Layer – Implements business logic.
+* Repository Layer – Handles database operations.
+* Models Layer – Defines MongoDB schemas.
+* Utilities & Middlewares – Authentication, validation, error handling.
+* Config Layer – Environment variables, database, and cache configuration.
 
 
 Features
 --------------------------------------------------------------------------
 1. Authentication & Authorization
-User registration & login with rate limiting
-JWT-based authentication (Access & Refresh tokens)
-Role-based access control (Admin, Manager, Agent, Viewer)
-Account lockout after multiple failed login attempts
+* User registration & login with rate limiting
+* JWT-based authentication (Access & Refresh tokens)
+* Role-based access control (Admin, Manager, Agent, Viewer)
+* Account lockout after multiple failed login attempts
 
 2. Account Management
-Create, read, update, and soft-delete accounts
-Pagination, filtering, and sorting
+* Create, read, update, and soft-delete accounts
+* Pagination, filtering, and sorting
 
 3. Payments
-Record and update payments
-Retrieve payment history
+* Record and update payments
+* Retrieve payment history
 
 4. Activity Tracking
-Log account activities
-Retrieve activity timeline
-Bulk activity retrieval
+* Log account activities
+* Retrieve activity timeline
+* Bulk activity retrieval
 
 5. Performance Optimization
-MongoDB indexing for faster queries
-Redis caching for frequently accessed data
-API response caching
-Connection pooling
+* MongoDB indexing for faster queries
+* Redis caching for frequently accessed data
+* API response caching
+* Connection pooling
 
 6. Security
-Password hashing with bcrypt
-Input validation & sanitization
-CORS configuration
-Rate limiting
+* Password hashing with bcrypt
+* Input validation & sanitization
+* CORS configuration
+* Rate limiting
 
 
 Project Structure
@@ -84,28 +84,28 @@ src/
 
 Performance Benchmarks
 --------------------------------------------------------------------------
-Response Time: <200ms average
-Throughput: 1000+ requests/sec
-Concurrent Users: 10,000+
-Database Query Time: <50ms average
+1. Response Time: <200ms average
+2. Throughput: 1000+ requests/sec
+3. Concurrent Users: 10,000+
+4. Database Query Time: <50ms average
 
 
 
 SOLID Principles in Action
 --------------------------------------------------------------------------
-Single Responsibility Principle (SRP): Each module/class has a single responsibility.
-Open/Closed Principle (OCP): Services and repositories can be extended without modifying existing code.
-Liskov Substitution Principle (LSP): Interfaces allow interchangeable service/repository implementations.
-Interface Segregation Principle (ISP): Small, focused interfaces.
-Dependency Inversion Principle (DIP): High-level modules depend on abstractions, not concretions.
+1. Single Responsibility Principle (SRP): Each module/class has a single responsibility.
+2. Open/Closed Principle (OCP): Services and repositories can be extended without modifying existing code.
+3. Liskov Substitution Principle (LSP): Interfaces allow interchangeable service/repository implementations.
+4. Interface Segregation Principle (ISP): Small, focused interfaces.
+5. Dependency Inversion Principle (DIP): High-level modules depend on abstractions, not concretions.
 
 
 Future Improvements
 --------------------------------------------------------------------------
-GraphQL support alongside REST
-Event-driven architecture with RabbitMQ/Kafka
-Admin dashboard for analytics
-Data encryption at rest
+* GraphQL support alongside REST
+* Event-driven architecture with RabbitMQ/Kafka
+* Admin dashboard for analytics
+* Data encryption at rest
 
 
 ==========================================================================
