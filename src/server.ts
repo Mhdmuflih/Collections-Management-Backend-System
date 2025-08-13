@@ -24,7 +24,6 @@ const app: Application = express();
 
 app.use(cors());
 app.use(morgan("tiny"));
-
 app.use(compression());
 
 // Custom logging middleware
@@ -74,3 +73,5 @@ const startServer = async () => {
     });
 };
 startServer();
+
+// export {app, connectDB}

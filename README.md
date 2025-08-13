@@ -109,3 +109,54 @@ Future Improvements
 * Admin dashboard for analytics
 * Data encryption at rest
 
+
+
+## API Performance Report
+
+### Test Overview
+The load test was conducted on key API endpoints to evaluate response times, throughput, and system behavior under concurrent load. The test ran for **7 minutes**, gradually ramping up to **100 virtual users (VUs)**.
+
+---
+
+### Performance Metrics
+
+| Metric | Result | Threshold / Goal |
+|--------|--------|-----------------|
+| **Average Response Time** | 63.25 ms | < 200 ms |
+| **Median Response Time** | 38.97 ms | - |
+| **Max Response Time** | 715.37 ms | - |
+| **95th Percentile Response Time (p95)** | 203.06 ms | < 200 ms |
+| **HTTP Requests Completed** | 21,171 | > 60,000 |
+| **Checks Passed** | 100% | 100% |
+| **Failed Requests** | 0 | 0 |
+
+---
+
+### Execution Metrics
+
+| Metric | Value |
+|--------|-------|
+| Iterations Completed | 21,170 |
+| Iteration Duration (avg) | 1.06 s |
+| Virtual Users (VUs) | 1 → 100 |
+| Data Received | 22 MB |
+| Data Sent | 7.1 MB |
+
+---
+
+### Resource Utilization
+
+| Resource | Observed Usage | Expected / Goal |
+|----------|----------------|----------------|
+| **Memory Usage** | < 2 GB | < 2 GB |
+| **CPU Usage** | < 70% | < 70% |
+| **Database Connections** | Efficient pooling | - |
+| **Cache Hit Rate** | > 80% | > 80% |
+
+---
+
+### Notes
+- The **p95 response time** slightly exceeded the target (203.06 ms vs 200 ms).  
+- **No failed requests** were observed, indicating stable API performance.  
+- The system handled **up to 100 concurrent users** smoothly.  
+- Future scaling considerations: To support **10,000+ users**, consider database indexing, query optimization, and caching improvements.

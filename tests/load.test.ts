@@ -3,13 +3,14 @@ import { check, sleep } from 'k6';
 
 export let options = {
   stages: [
-    { duration: '2m', target: 100 },   // ramp up to 50 VUs over 2 minutes
-    { duration: '3m', target: 500 },  // ramp up to 100 VUs over 3 minutes
+    { duration: '2m', target: 50 },   // ramp up to 50 VUs over 2 minutes
+    { duration: '3m', target: 100 },  // ramp up to 100 VUs over 3 minutes
     { duration: '2m', target: 0 },    // ramp down to 0 VUs
   ],
   thresholds: {
-    http_req_duration: ['p(95)<200'], // 95% of requests should be below 200ms
-  },
+    http_req_duration: ['p(95)<200'],
+    http_reqs: ['count>60000'],  // total requests, example for 1000 rps * 1 min
+  }
 };
 
 // Login once, get JWT token, share with all VUs
