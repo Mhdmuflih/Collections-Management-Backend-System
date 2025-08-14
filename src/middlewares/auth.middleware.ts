@@ -3,6 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 import { HTTP_STATUS } from "../constants/http-status";
 import { MESSAGES } from "../constants/messages";
+import { redis } from "../config/redis";
 
 dotenv.config();
 
@@ -24,6 +25,13 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     try {
         console.log(process.env.JWT_ACCESS_SECRET, 'this is env data')
         const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET || "access_secret") as JwtPayload;
+
+        const session = await redis.get(`session:${decoded.userId}`);
+        if (!session) {
+            res.status(HTTP_STATUS.UNAUTHORIZED).json({ message: MESSAGES.SESSION_EXPAIRED });
+            return ;
+        }
+
         console.log("Decoded:", decoded);
         req.headers['x-user-id'] = decoded.userId;
         req.headers['x-user-role'] = decoded.role;

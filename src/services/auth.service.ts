@@ -1,6 +1,8 @@
+import jwt from "jsonwebtoken";
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from "../config/jwt";
+import { redis } from "../config/redis";
 import { MESSAGES } from "../constants/messages";
-import { ICreateUser, ILoginUser } from "../interface/interface";
+import { IAuthTokenPayload, ICreateUser, ILoginUser } from "../interface/interface";
 import { IUser } from "../interface/models-interfaces/interface";
 import { IUserRepository } from "../interface/repositories-interfaces/IUserRepository";
 import { IAuthService } from "../interface/services-interface/IAuthService";
@@ -56,6 +58,12 @@ export class AuthService implements IAuthService {
                 await this.userRepository.resetFailedAttempts(userData.id.toString());
             }
 
+            await redis.setex(`session:${userData.id}`, 1800, JSON.stringify({
+                name: userData.name,
+                role: userData.role,
+                loginAt: new Date().toISOString()
+            }));
+
             const accessToken: string = generateAccessToken(userData.id.toString() as string, userData.role);
             const refreshToken: string = generateRefreshToken(userData.id.toString() as string, userData.role);
             return { accessToken, refreshToken, userData };
@@ -71,6 +79,7 @@ export class AuthService implements IAuthService {
     async validateRefreshToken(checkRefreshToken: string): Promise<{ accessToken: string; refreshToken: string; userData: IUser; }> {
         try {
             const decode = verifyRefreshToken(checkRefreshToken);
+
             const userData = await this.userRepository.findById(decode.userId);
             if (!userData) {
                 throw new Error(MESSAGES.USER_NOT_FOUND);
@@ -80,8 +89,12 @@ export class AuthService implements IAuthService {
             const refreshToken: string = generateRefreshToken(userData.id.toString() as string, userData.role);
             return { accessToken, refreshToken, userData };
         } catch (error: unknown) {
+            const decodedData = jwt.decode(checkRefreshToken) as IAuthTokenPayload;
+            if (decodedData?.userId) {
+                await redis.del(`session:${decodedData.userId}`);
+            }
+
             if (error instanceof Error) {
-                console.log("Failed to refresh token valid service.");
                 throw new Error(`Error refresh token valid service ${error.message}`);
             }
             throw new Error("An unknown error occurred during refresh token valid.");

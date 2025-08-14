@@ -3,6 +3,7 @@ export const MESSAGES = {
     ACCESS_DENIED: "Access denied",
     UNAUTHORIZED: "Unauthorized",
     FORBIDDEN: "Forbidden: Invalid token",
+    SESSION_EXPAIRED: "Session Expaired.",
 
     ALLREADY_EXISTED_EMAIL: "This email is already registered.",
     FAILED_TO_CREATE: "Failed To create user!",
