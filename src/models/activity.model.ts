@@ -22,6 +22,14 @@ const activitySchema: Schema = new Schema<IActivity>({
         type: Date,
         default: Date.now
     }
-}, {timestamps: true});
+}, { timestamps: true });
+
+activitySchema.index({ account: 1 });
+activitySchema.index({ performedBy: 1 });
+activitySchema.index({ createdAt: -1 });
+
+
+// Activity timeline for an account
+// activitySchema.index({ account: 1, createdAt: -1 });
 
 export default model<IActivity>("Activity", activitySchema);

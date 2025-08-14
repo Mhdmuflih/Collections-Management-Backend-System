@@ -9,13 +9,13 @@ import { getIO } from "../sockets/socket.handler";
 export class PaymentService implements IPaymentService {
     constructor(private paymentRepository: IPaymentRepository) { }
 
-    async recordPayment(id: string, amount: number, method: string, userId: string): Promise<IPayment | null> {
+    async recordPayment(data: ICreatePayment): Promise<IPayment | null> {
         try {
             const paymentData: ICreatePayment = {
-                account: new mongoose.Types.ObjectId(id),
-                amount: Number(amount),
-                method: method,
-                recordedBy: new mongoose.Types.ObjectId(userId),
+                account: data.account,
+                amount: Number(data.amount),
+                method: data.method,
+                recordedBy: data.recordedBy,
             }
             const createPayment = await this.paymentRepository.createPayment(paymentData);
             if (!createPayment) {

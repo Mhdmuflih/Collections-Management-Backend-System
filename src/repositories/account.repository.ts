@@ -1,3 +1,5 @@
+import { CreateAccountDTO } from "../dto/create-account.dto";
+import { UpdateAccountDTO } from "../dto/update-account.dto";
 import { ICreateAccount } from "../interface/interface";
 import { IAccount } from "../interface/models-interfaces/interface";
 import { IAccountRepository } from "../interface/repositories-interfaces/IAccountRepository";
@@ -9,7 +11,7 @@ class AccountRepository extends BaseRepository<IAccount> implements IAccountRepo
         super(Account);
     }
 
-    async createAccount(createData: ICreateAccount): Promise<IAccount | null> {
+    async createAccount(createData: CreateAccountDTO): Promise<IAccount | null> {
         try {
             return this.create(createData);
         } catch (error: unknown) {
@@ -42,7 +44,7 @@ class AccountRepository extends BaseRepository<IAccount> implements IAccountRepo
         }
     }
 
-    async updateById(accountId: string, updatesField: Partial<ICreateAccount>): Promise<IAccount | null> {
+    async updateById(accountId: string, updatesField: UpdateAccountDTO): Promise<IAccount | null> {
         try {
             return await Account.findByIdAndUpdate(
                 { _id: accountId },

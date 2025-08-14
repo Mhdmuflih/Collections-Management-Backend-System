@@ -3,6 +3,8 @@ import { IPaymentController } from "../interface/controllers-interfaces/IPayment
 import { IPaymentService } from "../interface/services-interface/IPaymentService";
 import { HTTP_STATUS } from "../constants/http-status";
 import { MESSAGES } from "../constants/messages";
+import mongoose from "mongoose";
+import { CreatePaymentDTO } from "../dto/create-payment.dto";
 
 export class PaymentController implements IPaymentController {
     constructor(private paymentService: IPaymentService) { }
@@ -21,7 +23,13 @@ export class PaymentController implements IPaymentController {
                 return;
             }
 
-            const paymentData = await this.paymentService.recordPayment(id, amount, method, userId as string);
+            const createData = {
+                account: new mongoose.Types.ObjectId(id),
+                amount: amount,
+                method: method,
+                recordedBy: new mongoose.Types.ObjectId(userId as string)
+            }
+            const paymentData = await this.paymentService.recordPayment(createData);
             res.status(HTTP_STATUS.SUCCESS).json({ success: true, message: MESSAGES.PAYMENT_CREATE_SUCCESSFULL, paymentData: paymentData });
         } catch (error: unknown) {
             if (error instanceof Error) {

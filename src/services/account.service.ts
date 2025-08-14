@@ -5,11 +5,13 @@ import { ICreateAccount } from "../interface/interface";
 import { IAccount } from "../interface/models-interfaces/interface";
 import { IAccountRepository } from "../interface/repositories-interfaces/IAccountRepository";
 import { IAccountService } from "../interface/services-interface/IAccountService";
+import { CreateAccountDTO } from "../dto/create-account.dto";
+import { UpdateAccountDTO } from "../dto/update-account.dto";
 
 export class AccountService implements IAccountService {
     constructor(private accountRepository: IAccountRepository) { }
 
-    async createAccount(createData: ICreateAccount, userId: string): Promise<IAccount | null> {
+    async createAccount(createData: CreateAccountDTO, userId: string): Promise<IAccount | null> {
         try {
             if (!createData || !userId) {
                 throw new Error(MESSAGES.ALL_FIELD_REQUIRED);
@@ -73,7 +75,7 @@ export class AccountService implements IAccountService {
         }
     }
 
-    async updateAccount(accountId: string, updatesField: Partial<ICreateAccount>): Promise<IAccount> {
+    async updateAccount(accountId: string, updatesField: UpdateAccountDTO): Promise<IAccount> {
         try {
             const accountData = await this.accountRepository.getAccountById(accountId);
             if (!accountData) {

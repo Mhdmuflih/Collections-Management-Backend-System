@@ -2,6 +2,9 @@ import { Router } from "express";
 import { AuthController } from "../controllers/auth.controller";
 import UserRepository from "../repositories/user.repository";
 import { AuthService } from "../services/auth.service";
+import { dtoValidationMiddleware } from "../middlewares/dto.validation";
+import { CreateUserDTO } from "../dto/create-user.dto";
+import { LoginUserDTO } from "../dto/login-user.dot";
 
 const authService = new AuthService(UserRepository);
 const authController = new AuthController(authService);
@@ -180,8 +183,8 @@ const Auth_Routes = Router();
  *         description: Missing or invalid refresh token
  */
 
-Auth_Routes.post("/register", authController.register.bind(authController));
-Auth_Routes.post("/login", authController.login.bind(authController));
+Auth_Routes.post("/register", dtoValidationMiddleware(CreateUserDTO), authController.register.bind(authController));
+Auth_Routes.post("/login", dtoValidationMiddleware(LoginUserDTO), authController.login.bind(authController));
 Auth_Routes.post("/refresh-token", authController.validateRefreshToken.bind(authController));
 
 export default Auth_Routes;

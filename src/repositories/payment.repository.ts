@@ -1,3 +1,4 @@
+import { CreatePaymentDTO } from "../dto/create-payment.dto";
 import { ICreatePayment } from "../interface/interface";
 import { IPayment } from "../interface/models-interfaces/interface";
 import { IPaymentRepository } from "../interface/repositories-interfaces/IPaymentRepository";
@@ -9,7 +10,7 @@ class PaymentRepository extends BaseRepository<IPayment> implements IPaymentRepo
         super(Payment);
     }
 
-    async createPayment(createData: ICreatePayment): Promise<IPayment | null> {
+    async createPayment(createData: CreatePaymentDTO): Promise<IPayment | null> {
         try {
             return this.create(createData);
         } catch (error: unknown) {

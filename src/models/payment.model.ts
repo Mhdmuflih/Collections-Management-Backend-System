@@ -29,4 +29,17 @@ const paymentSchema: Schema = new Schema<IPayment>({
     }
 },{timestamps: true});
 
+paymentSchema.index({ account: 1 });
+paymentSchema.index({ status: 1 });
+paymentSchema.index({ paymentDate: -1 });
+paymentSchema.index({ recordedBy: 1 });
+
+
+// // For payment history by account (sorted newest first)
+// paymentSchema.index({ account: 1, paymentDate: -1 });
+
+// // For listing payments by status
+// paymentSchema.index({ status: 1 });
+
+
 export default model<IPayment>("Payment", paymentSchema);

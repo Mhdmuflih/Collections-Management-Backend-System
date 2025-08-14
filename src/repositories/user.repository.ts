@@ -4,6 +4,7 @@ import { IUserRepository } from "../interface/repositories-interfaces/IUserRepos
 import User from "../models/user.model";
 import { BaseRepository } from "./base.respository";
 import { MESSAGES } from "../constants/messages";
+import { CreateUserDTO } from "../dto/create-user.dto";
 
 class UserRepository extends BaseRepository<IUser> implements IUserRepository {
     constructor() {
@@ -21,7 +22,7 @@ class UserRepository extends BaseRepository<IUser> implements IUserRepository {
         }
     }
 
-    async createUser(data: ICreateUser): Promise<IUser | null> {
+    async createUser(data: CreateUserDTO): Promise<IUser | null> {
         try {
             return this.create(data);
         } catch (error: unknown) {

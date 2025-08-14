@@ -42,4 +42,20 @@ const accountSchema: Schema = new Schema<IAccount>({
     }
 }, {timestamps: true});
 
+accountSchema.index({ status: 1 });
+accountSchema.index({ createdBy: 1 });
+accountSchema.index({ email: 1, phone: 1 }); // Compound index
+accountSchema.index({ createdAt: -1 });
+
+
+// // Fast lookup by account number
+// accountSchema.index({ accountNumber: 1 }, { unique: true });
+
+// // Compound for filtering by status and sorting by created date
+// accountSchema.index({ status: 1, createdAt: -1 });
+
+// // If you often need only active/non-deleted accounts
+// accountSchema.index({ isDeleted: 1, createdAt: -1 });
+
+
 export default model<IAccount>("Account", accountSchema);

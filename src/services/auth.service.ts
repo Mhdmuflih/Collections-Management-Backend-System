@@ -7,11 +7,13 @@ import { IUser } from "../interface/models-interfaces/interface";
 import { IUserRepository } from "../interface/repositories-interfaces/IUserRepository";
 import { IAuthService } from "../interface/services-interface/IAuthService";
 import { passwordCompaire, passwordHashing } from "../utilities/bcrypt";
+import { CreateUserDTO } from "../dto/create-user.dto";
+import { LoginUserDTO } from "../dto/login-user.dot";
 
 export class AuthService implements IAuthService {
     constructor(private userRepository: IUserRepository) { }
 
-    async register(data: ICreateUser): Promise<IUser | any> {
+    async register(data: CreateUserDTO): Promise<IUser | any> {
         try {
             const existingUser = await this.userRepository.findByEmail(data.email);
             if (existingUser) {
@@ -37,7 +39,7 @@ export class AuthService implements IAuthService {
         }
     }
 
-    async login(loginData: ILoginUser): Promise<{ accessToken: string, refreshToken: string, userData: IUser }> {
+    async login(loginData: LoginUserDTO): Promise<{ accessToken: string, refreshToken: string, userData: IUser }> {
         try {
             const userData: IUser | null = await this.userRepository.findByEmail(loginData.email);
             if (!userData) {
@@ -85,15 +87,16 @@ export class AuthService implements IAuthService {
                 throw new Error(MESSAGES.USER_NOT_FOUND);
             }
 
+            await redis.setex(`session:${userData.id}`, 1800, JSON.stringify({
+                name: userData.name,
+                role: userData.role,
+                loginAt: new Date().toISOString()
+            }));
+
             const accessToken: string = generateAccessToken(userData.id.toString() as string, userData.role);
             const refreshToken: string = generateRefreshToken(userData.id.toString() as string, userData.role);
             return { accessToken, refreshToken, userData };
         } catch (error: unknown) {
-            const decodedData = jwt.decode(checkRefreshToken) as IAuthTokenPayload;
-            if (decodedData?.userId) {
-                await redis.del(`session:${decodedData.userId}`);
-            }
-
             if (error instanceof Error) {
                 throw new Error(`Error refresh token valid service ${error.message}`);
             }
