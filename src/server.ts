@@ -74,7 +74,7 @@ const startServer = async () => {
     const server = http.createServer(app);
     initSocket(server);
 
-    app.listen(port, () => {
+    server.listen(port, () => {
         console.log(`Server Is Running on http://localhost${port}`);
     });
 };

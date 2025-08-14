@@ -4,6 +4,7 @@ import { ICreatePayment } from "../interface/interface";
 import { IPayment } from "../interface/models-interfaces/interface";
 import { IPaymentRepository } from "../interface/repositories-interfaces/IPaymentRepository";
 import { IPaymentService } from "../interface/services-interface/IPaymentService";
+import { getIO } from "../sockets/socket.handler";
 
 export class PaymentService implements IPaymentService {
     constructor(private paymentRepository: IPaymentRepository) { }
@@ -20,6 +21,12 @@ export class PaymentService implements IPaymentService {
             if (!createPayment) {
                 throw new Error(MESSAGES.PAYMENT_FAILED_TO_CREATE);
             }
+
+            getIO().emit("payment:new", {
+                message: "New payment recorded",
+                payment: paymentData,
+            });
+
             return createPayment;
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -49,11 +56,17 @@ export class PaymentService implements IPaymentService {
     async updatePaymentStatus(paymentId: string): Promise<IPayment | null> {
         try {
             const paymentData = await this.paymentRepository.findPayment(paymentId);
-            console.log(paymentData, 'this is payment data');
-            if(!paymentData) {
+            if (!paymentData) {
                 throw new Error(MESSAGES.PAYMENT_NOT_FOUND);
             }
+
             const updateStatus = await this.paymentRepository.updateStatus(paymentId);
+
+            getIO().emit("payment:statusUpdated", {
+                message: "Payment status updated",
+                payment: updateStatus,
+            });
+
             return updateStatus;
         } catch (error: unknown) {
             if (error instanceof Error) {

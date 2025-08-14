@@ -7,11 +7,15 @@ export const initSocket = (server: HttpServer) => {
     io = new SocketIOServer(server, {
         cors: { origin: "*" },
     });
-    
+
     console.log("✅ Socket.IO initialized and waiting for connections...");
 
     io.on("connection", (socket: Socket) => {
         console.log("User Connected:", socket.id);
+        
+        socket.on("disconnect", () => {
+            console.log("User Disconnected:", socket.id);
+        });
     });
 };
 
