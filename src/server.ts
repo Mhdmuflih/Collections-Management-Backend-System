@@ -18,6 +18,7 @@ import { swaggerSpec, swaggerUi } from "./config/swagger";
 import Health_Route from "./routes/health.route";
 import rateLimiter from "./middlewares/rate.limitter.middleware";
 import { initSocket } from "./sockets/socket.handler";
+import { conntectToRedis } from "./config/redis";
 // ============================================================
 
 dotenv.config();
@@ -69,7 +70,9 @@ app.all(/.*/, (req: Request, res: Response) => {
 
 let port: number = Number(process.env.PORT) || 3000;
 const startServer = async () => {
+    
     await connectDB();
+    await conntectToRedis();
 
     const server = http.createServer(app);
     initSocket(server);
