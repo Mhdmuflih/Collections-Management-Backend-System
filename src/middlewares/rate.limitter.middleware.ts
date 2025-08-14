@@ -4,8 +4,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log("Current NODE_ENV:", process.env.NODE_ENV);
-
 const rateLimiter = rateLimit({
   windowMs: 60 * 1000,
   max:  100000,

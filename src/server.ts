@@ -2,6 +2,8 @@ import express, { Application, Request, Response } from "express";
 import dotenv from 'dotenv';
 import cors from "cors";
 import compression from "compression";
+import morgan from "morgan";
+import http from "http"; 
 
 // ============================================================
 import { connectDB } from "./config/database.connection";
@@ -9,13 +11,13 @@ import Auth_Routes from "./routes/auth.routes";
 import Account_Routes from "./routes/account.routes";
 import Payment_Routes from "./routes/payment.routes";
 import Activity_Routes from "./routes/activity.routes";
-import morgan from "morgan";
 import logger from "./middlewares/logger.middleware";
 import { HTTP_STATUS } from "./constants/http-status";
 import { MESSAGES } from "./constants/messages";
 import { swaggerSpec, swaggerUi } from "./config/swagger";
 import Health_Route from "./routes/health.route";
 import rateLimiter from "./middlewares/rate.limitter.middleware";
+import { initSocket } from "./sockets/socket.handler";
 // ============================================================
 
 dotenv.config();
@@ -68,6 +70,10 @@ app.all(/.*/, (req: Request, res: Response) => {
 let port: number = Number(process.env.PORT) || 3000;
 const startServer = async () => {
     await connectDB();
+
+    const server = http.createServer(app);
+    initSocket(server);
+
     app.listen(port, () => {
         console.log(`Server Is Running on http://localhost${port}`);
     });
