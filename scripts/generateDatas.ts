@@ -4,6 +4,10 @@ import userRepository from "../src/repositories/user.repository";
 import accountRepository from "../src/repositories/account.repository";
 import { generateAccountNumber } from "../src/utilities/generate-account";
 import { CreateUserDTO } from "../src/dto/create-user.dto";
+import dotenv from "dotenv";
+import { passwordHashing } from "../src/utilities/bcrypt";
+
+dotenv.config();
 
 async function generateTestData() {
   // 1. Create users
@@ -11,10 +15,11 @@ async function generateTestData() {
   const users: CreateUserDTO[] = [];
 
   for (let i = 0; i < 20; i++) {
+    const hashedPassword = await passwordHashing("Password@123");
     users.push({
-      name: faker.name.fullName(),
+      name: faker.person.fullName(),
       email: faker.internet.email(),
-      password: "Password@123",
+      password: hashedPassword as string,
       role: roles[i % roles.length] as CreateUserDTO["role"],
     });
   }
@@ -35,10 +40,10 @@ async function generateTestData() {
     const creator = creators[i % creators.length];
     accounts.push({
       accountNumber: generateAccountNumber(),
-      name: faker.name.fullName(),
+      name: faker.person.fullName(),
       email: faker.internet.email(),
       phone: faker.phone.number(),
-      address: faker.address.streetAddress(),
+      address: faker.location.streetAddress(),
       createdBy: creator._id as Types.ObjectId,
     });
   }
@@ -51,7 +56,23 @@ async function generateTestData() {
   }
 }
 
-mongoose.connect(process.env.MONGO_URI!).then(async () => {
-  await generateTestData();
-  mongoose.disconnect();
-});
+async function main() {
+  try {
+    const conn = await mongoose.connect(process.env.mongoURL as string, {
+      dbName: "collectionsApp",
+      autoIndex: true,
+    });
+
+    console.log(` MongoDB Connected: ${conn.connection.name}`);
+
+    await generateTestData();
+
+    console.log(" Data generation complete!");
+    await mongoose.disconnect();
+  } catch (error) {
+    console.error(" Error generating test data:", error);
+    process.exit(1);
+  }
+}
+
+main();

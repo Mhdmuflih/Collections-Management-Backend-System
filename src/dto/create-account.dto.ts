@@ -18,7 +18,4 @@ export class CreateAccountDTO {
     @IsString({ message: "Address must be a string" })
     @IsNotEmpty({ message: "Address is required" })
     address!: string;
-
-    @IsNotEmpty({ message: "createdBy is required" })
-    createdBy!: Types.ObjectId;
 }
