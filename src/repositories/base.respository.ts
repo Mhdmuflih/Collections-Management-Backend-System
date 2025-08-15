@@ -63,4 +63,16 @@ export class BaseRepository<T extends Document> implements IBaseRepository<T> {
             throw new Error("An Unknown non-error value was throw in find.");
         }
     }
+
+    async createMany(data: Partial<T>[]): Promise<any> {
+        try {
+            const result = await this.model.insertMany(data, { ordered: false });
+            return result;
+        } catch (error: unknown) {
+            if(error instanceof Error) {
+                throw new Error(`An unknown error occurred in create many: ${error.message}`);
+            }
+            throw new Error(`An Unknown non-error value was throw in create many`);
+        }
+    }
 }

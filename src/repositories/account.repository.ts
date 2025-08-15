@@ -61,12 +61,23 @@ class AccountRepository extends BaseRepository<IAccount> implements IAccountRepo
 
     async deleteAccount(accountId: string): Promise<IAccount | null> {
         try {
-            return await Account.findByIdAndUpdate({_id: accountId}, {$set: {isDeleted: true}}, {new : true}).exec();
+            return await Account.findByIdAndUpdate({ _id: accountId }, { $set: { isDeleted: true } }, { new: true }).exec();
         } catch (error: unknown) {
             if (error instanceof Error) {
                 throw new Error(`Error in delete account: ${error.message}`);
             }
             throw new Error("Unkown error in delete account.");
+        }
+    }
+
+    async createManyAccount(data: ICreateAccount[]): Promise<IAccount | null> {
+        try {
+            return this.createMany(data)
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                throw new Error(`Error in create many account: ${error.message}`);
+            }
+            throw new Error("Unkown error in create many account.");
         }
     }
 }

@@ -28,8 +28,4 @@ activitySchema.index({ account: 1 });
 activitySchema.index({ performedBy: 1 });
 activitySchema.index({ createdAt: -1 });
 
-
-// Activity timeline for an account
-// activitySchema.index({ account: 1, createdAt: -1 });
-
 export default model<IActivity>("Activity", activitySchema);

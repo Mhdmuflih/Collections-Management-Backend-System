@@ -18,9 +18,9 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     }
 
     const token = authHeader.split(' ')[1];
-    console.log(token, ' this is the jwt token')
+    console.log(token, ' this is the jwt token');
     const userType = authHeader.split(' ')[2];
-    console.log(userType, 'user type')
+    console.log(userType, 'user type');
 
     try {
         console.log(process.env.JWT_ACCESS_SECRET, 'this is env data')

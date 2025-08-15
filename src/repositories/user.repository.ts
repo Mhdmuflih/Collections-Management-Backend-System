@@ -79,6 +79,17 @@ class UserRepository extends BaseRepository<IUser> implements IUserRepository {
         }
     }
 
+    async createManyUser(data: CreateUserDTO[]): Promise<IUser[] | null> {
+        try {
+            return this.createMany(data);
+        } catch (error: unknown) {
+            if(error instanceof Error) {
+                throw new Error(`Error in create many user: ${error.message}`);
+            }
+            throw new Error("Unknow error in create many users");
+        }
+    }
+
 }
 
 export default new UserRepository();

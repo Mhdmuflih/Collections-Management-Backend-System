@@ -38,14 +38,4 @@ const userSchema: Schema = new Schema<IUser>({
 userSchema.index({ role: 1 });
 userSchema.index({ createdAt: -1 });
 
-
-// // Unique email for login
-// userSchema.index({ email: 1 }, { unique: true });
-
-// // Role filter (RBAC)
-// userSchema.index({ role: 1 });
-
-// // Optional: If you list users by creation date a lot
-// userSchema.index({ createdAt: -1 });
-
 export default model<IUser>("User", userSchema);

@@ -9,4 +9,5 @@ export interface IAccountRepository {
     getAccountById(accountId: string): Promise<IAccount | null>;
     updateById(accountId: string, updatesField: UpdateAccountDTO): Promise<IAccount | null>;
     deleteAccount(accountId: string): Promise<IAccount | null>;
+    createManyAccount(data: ICreateAccount[]): Promise<IAccount | null>
 }

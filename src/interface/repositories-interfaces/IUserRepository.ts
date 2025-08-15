@@ -9,4 +9,5 @@ export interface IUserRepository {
     findById(userId: string | JwtPayload | undefined): Promise<IUser | null>
     updateFailedToAttempt(userId: string): Promise<IUser | null>;
     resetFailedAttempts(userId: string): Promise<IUser | null>;
+    createManyUser(data: CreateUserDTO[]): Promise<IUser[] | null>
 }
