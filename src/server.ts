@@ -16,7 +16,6 @@ import { HTTP_STATUS } from "./constants/http-status";
 import { MESSAGES } from "./constants/messages";
 import { swaggerSpec, swaggerUi } from "./config/swagger";
 import Health_Route from "./routes/health.route";
-import rateLimiter from "./middlewares/rate.limitter.middleware";
 import { initSocket } from "./sockets/socket.handler";
 import { conntectToRedis } from "./config/redis";
 // ============================================================
@@ -42,7 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ============================================================
-app.use(rateLimiter); // Apply rate limiter globally to all routes
+// app.use(rateLimiter); // Apply rate limiter globally to all routes
 // ============================================================
 
 // Swagger Docs Route
