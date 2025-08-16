@@ -64,19 +64,19 @@ app.all(/.*/, (req: Request, res: Response) => {
 // ============================================================
 
 
-// let port: number = Number(process.env.PORT) || 3000;
-// const startServer = async () => {
+let port: number = Number(process.env.PORT) || 3000;
+const startServer = async () => {
     
-//     await connectDB();
-//     await connectToRedis();
+    await connectDB();
+    await connectToRedis();
 
-//     const server = http.createServer(app);
-//     initSocket(server);
+    const server = http.createServer(app);
+    initSocket(server);
 
-//     server.listen(port, () => {
-//         console.log(`Server Is Running on http://localhost${port}`);
-//     });
-// };
-// startServer();
+    server.listen(port, () => {
+        console.log(`Server Is Running on http://localhost${port}`);
+    });
+};
+startServer();
 
-export {app, connectDB, connectToRedis}
+// export {app, connectDB, connectToRedis}
