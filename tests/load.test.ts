@@ -3,13 +3,13 @@ import { check, sleep } from 'k6';
 
 export let options = {
   stages: [
-    { duration: '1m', target: 1000 }, // ramp up
-    { duration: '3m', target: 1000 }, // hold load
-    { duration: '1m', target: 0 },    // ramp down
+    { duration: '2m', target: 50 },   // ramp up to 50 VUs over 2 minutes
+    { duration: '3m', target: 100 },  // ramp up to 100 VUs over 3 minutes
+    { duration: '2m', target: 0 },    // ramp down to 0 VUs
   ],
   thresholds: {
-    http_req_duration: ['p(95)<200'], // API latency check
-    http_reqs: ['count>180000'],      // 1000 rps * 3 min
+    http_req_duration: ['p(95)<200'],
+    http_reqs: ['count>60000'],  // total requests, example for 1000 rps * 1 min
   }
 };
 

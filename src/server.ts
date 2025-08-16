@@ -17,7 +17,7 @@ import { MESSAGES } from "./constants/messages";
 import { swaggerSpec, swaggerUi } from "./config/swagger";
 import Health_Route from "./routes/health.route";
 import { initSocket } from "./sockets/socket.handler";
-import { conntectToRedis } from "./config/redis";
+import { connectToRedis } from "./config/redis";
 // ============================================================
 
 dotenv.config();
@@ -40,9 +40,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ============================================================
-// app.use(rateLimiter); // Apply rate limiter globally to all routes
-// ============================================================
 
 // Swagger Docs Route
 // ============================================================
@@ -67,19 +64,19 @@ app.all(/.*/, (req: Request, res: Response) => {
 // ============================================================
 
 
-let port: number = Number(process.env.PORT) || 3000;
-const startServer = async () => {
+// let port: number = Number(process.env.PORT) || 3000;
+// const startServer = async () => {
     
-    await connectDB();
-    await conntectToRedis();
+//     await connectDB();
+//     await connectToRedis();
 
-    const server = http.createServer(app);
-    initSocket(server);
+//     const server = http.createServer(app);
+//     initSocket(server);
 
-    server.listen(port, () => {
-        console.log(`Server Is Running on http://localhost${port}`);
-    });
-};
-startServer();
+//     server.listen(port, () => {
+//         console.log(`Server Is Running on http://localhost${port}`);
+//     });
+// };
+// startServer();
 
-// export {app, connectDB}
+export {app, connectDB, connectToRedis}

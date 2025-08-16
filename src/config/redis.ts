@@ -5,7 +5,7 @@ dotenv.config();
 
 const redis = new Redis(process.env.REDIS_URL as string);
 
-const conntectToRedis = async () => {
+const connectToRedis = async () => {
     redis.on("connect", () => {
         console.log("Redis clint is connected.");
     });
@@ -15,4 +15,4 @@ const conntectToRedis = async () => {
     });
 }
 
-export { redis, conntectToRedis };
+export { redis, connectToRedis };

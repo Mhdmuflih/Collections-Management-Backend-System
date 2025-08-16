@@ -1,5 +1,5 @@
-import rateLimit from 'express-rate-limit';
-import { Request } from 'express';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
+import { Request, Response } from 'express';
 
 export const registerLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -15,7 +15,7 @@ export const loginLimiter = rateLimit({
   message: 'Too many login attempts, please try again later.',
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: (req: Request) => {
-    return (req.body?.email || req.ip).toLowerCase();
+  keyGenerator: (req: Request, res: Response) => {
+    return (req.body?.email?.toLowerCase() || ipKeyGenerator(req as any, res as any));
   },
 });
